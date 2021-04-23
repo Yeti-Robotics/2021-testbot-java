@@ -4,34 +4,51 @@
 
 package frc.robot.commands.LED;
 
-import java.security.InvalidParameterException;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDSubsystem;
+import java.awt.Color;
 
 public class SetGradientCommand extends CommandBase {
   private LEDSubsystem ledSubsystem;
-  private int firstHue;
-  private int secondHue;
+  private Color firstColor;
+  private Color secondColor;
 
-  public SetGradientCommand(LEDSubsystem ledSubsystem, int firstHue, int secondHue){
+  public SetGradientCommand(LEDSubsystem ledSubsystem, Color firstColor, Color secondColor){
     this.ledSubsystem = ledSubsystem;
-    // use min/max just in case parameters are passed in incorrectly
-    this.firstHue = Math.min(firstHue, secondHue);
-    this.secondHue = Math.max(firstHue, secondHue);
+		this.firstColor = firstColor;
+		this.secondColor = secondColor;
     addRequirements(ledSubsystem);
   }
 
   @Override
   public void initialize(){
-    if(firstHue < 0 || secondHue > 180){
-			throw new InvalidParameterException("Invalid hue(s) in SetGradientCommand");
-    }
-		double hue = firstHue;
-		double increment = (double) (secondHue - firstHue) / ledSubsystem.getBufferLength();
+		double[] increments = {
+			Math.abs((double) (firstColor.getRed() - secondColor.getRed()) / ledSubsystem.getBufferLength()),     // R
+			Math.abs((double) (firstColor.getGreen() - secondColor.getGreen()) / ledSubsystem.getBufferLength()), // G
+			Math.abs((double) (firstColor.getBlue() - secondColor.getBlue()) / ledSubsystem.getBufferLength())    // B
+		};
+
+		double[] currRGB = {
+			firstColor.getRed(),   // R
+			firstColor.getGreen(), // G
+			firstColor.getBlue()   // B
+		};
+
+		if(firstColor.getRed() > secondColor.getRed()){
+			increments[0] *= -1;
+		}
+		if(firstColor.getGreen() > secondColor.getGreen()){
+			increments[1] *= -1;
+		}
+		if(firstColor.getBlue() > secondColor.getBlue()){
+			increments[2] *= -1;
+		}
+
 		for(int i = 0; i < ledSubsystem.getBufferLength(); i++){
-			ledSubsystem.setHSV(i, (int) Math.round(hue), 255, 128);
-			hue += increment;
+			ledSubsystem.setRGB(i, (int) Math.round(currRGB[0]), (int) Math.round(currRGB[1]), (int) Math.round(currRGB[2]));
+			for(int j = 0; j < currRGB.length; j++){
+				currRGB[j] += increments[j];
+			}
 		}
   }
 
