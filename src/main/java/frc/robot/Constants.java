@@ -4,15 +4,11 @@
 
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
 public final class Constants {
+    public static class LEDConstants {
+        public static int LED_STRIP = 1337; //obv placeholder
+        public static int LED_LENGTH = 69; //might be actual value? need to check
+    }
     public static final class ShooterConstants {
         public static final int LEFT_FLYWHEEL = 1337; //temp
         public static final int RIGHT_FLYWHEEL = 1337;
