@@ -17,7 +17,7 @@ public class ShooterSubsystem extends SubsystemBase {
 	private WPI_TalonFX rightFlywheel;
 
  	public enum ShooterStatus {
-    	FORWARD, BACKWARD, OFF;
+    		FORWARD, BACKWARD, OFF;
   	}
 
 	public static ShooterStatus shooterStatus;
