@@ -13,28 +13,28 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private WPI_TalonFX leftFlywheel;
-  private WPI_TalonFX rightFlywheel;
+	private WPI_TalonFX leftFlywheel;
+	private WPI_TalonFX rightFlywheel;
 
-  public enum ShooterStatus {
-    FORWARD, BACKWARD, OFF;
-  }
+ 	public enum ShooterStatus {
+    	FORWARD, BACKWARD, OFF;
+  	}
 
-  public static ShooterStatus shooterStatus;
+	public static ShooterStatus shooterStatus;
 
-  public ShooterSubsystem(){
-    leftFlywheel = new WPI_TalonFX(ShooterConstants.LEFT_FLYWHEEL);
-    rightFlywheel = new WPI_TalonFX(ShooterConstants.RIGHT_FLYWHEEL);
+	public ShooterSubsystem(){
+		leftFlywheel = new WPI_TalonFX(ShooterConstants.LEFT_FLYWHEEL);
+		rightFlywheel = new WPI_TalonFX(ShooterConstants.RIGHT_FLYWHEEL);
 
-    leftFlywheel.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
-    rightFlywheel.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
+		leftFlywheel.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
+		rightFlywheel.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 0);
 
-    rightFlywheel.follow(leftFlywheel);
+		rightFlywheel.follow(leftFlywheel);
 
-    leftFlywheel.setNeutralMode(NeutralMode.Coast);
-    rightFlywheel.setNeutralMode(NeutralMode.Coast);
+		leftFlywheel.setNeutralMode(NeutralMode.Coast);
+		rightFlywheel.setNeutralMode(NeutralMode.Coast);
 
-    shooterStatus = ShooterStatus.OFF;
+		shooterStatus = ShooterStatus.OFF;
 	}
 	
 	public void shootFlywheel(){
@@ -42,10 +42,10 @@ public class ShooterSubsystem extends SubsystemBase {
 		shooterStatus = ShooterStatus.FORWARD;
 	}
 
-  public void shootFlywheel(double speed){
+	public void shootFlywheel(double speed){
 		leftFlywheel.set(ControlMode.PercentOutput, speed);
 		shooterStatus = (speed > 0.0) ? ShooterStatus.FORWARD : ShooterStatus.BACKWARD; 
-  }
+	}
 
 	public void stopFlywheel(){
 		leftFlywheel.set(ControlMode.PercentOutput, 0.0);
