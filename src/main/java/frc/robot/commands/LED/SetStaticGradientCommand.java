@@ -8,24 +8,24 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDSubsystem;
 import java.awt.Color;
 
-public class SetGradientCommand extends CommandBase {
+public class SetStaticGradientCommand extends CommandBase {
   private LEDSubsystem ledSubsystem;
   private Color firstColor;
   private Color secondColor;
 
-  public SetGradientCommand(LEDSubsystem ledSubsystem, Color firstColor, Color secondColor){
+  public SetStaticGradientCommand(LEDSubsystem ledSubsystem, Color firstColor, Color secondColor){
     this.ledSubsystem = ledSubsystem;
-		this.firstColor = firstColor;
-		this.secondColor = secondColor;
+  	this.firstColor = firstColor;
+  	this.secondColor = secondColor;
     addRequirements(ledSubsystem);
   }
 
   @Override
   public void initialize(){
 		double[] increments = {
-			Math.abs((double) (firstColor.getRed() - secondColor.getRed()) / ledSubsystem.getBufferLength()),     // R
-			Math.abs((double) (firstColor.getGreen() - secondColor.getGreen()) / ledSubsystem.getBufferLength()), // G
-			Math.abs((double) (firstColor.getBlue() - secondColor.getBlue()) / ledSubsystem.getBufferLength())    // B
+			(double) (secondColor.getRed() - firstColor.getRed()) / ledSubsystem.getBufferLength(),     // R
+			(double) (secondColor.getGreen() - firstColor.getGreen()) / ledSubsystem.getBufferLength(), // G
+			(double) (secondColor.getBlue() - firstColor.getBlue()) / ledSubsystem.getBufferLength()    // B
 		};
 
 		double[] currRGB = {
@@ -33,16 +33,6 @@ public class SetGradientCommand extends CommandBase {
 			firstColor.getGreen(), // G
 			firstColor.getBlue()   // B
 		};
-
-		if(firstColor.getRed() > secondColor.getRed()){
-			increments[0] *= -1;
-		}
-		if(firstColor.getGreen() > secondColor.getGreen()){
-			increments[1] *= -1;
-		}
-		if(firstColor.getBlue() > secondColor.getBlue()){
-			increments[2] *= -1;
-		}
 
 		for(int i = 0; i < ledSubsystem.getBufferLength(); i++){
 			ledSubsystem.setRGB(i, (int) Math.round(currRGB[0]), (int) Math.round(currRGB[1]), (int) Math.round(currRGB[2]));
