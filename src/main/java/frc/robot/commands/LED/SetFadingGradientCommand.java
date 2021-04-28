@@ -22,14 +22,14 @@ public class SetFadingGradientCommand extends CommandBase {
     this.firstColor = firstColor;
     this.secondColor = secondColor;
     this.increments = new double[]{
-      (double) (secondColor.getRed() - firstColor.getRed()) / ledSubsystem.getBufferLength(),     // R
-		  (double) (secondColor.getGreen() - firstColor.getGreen()) / ledSubsystem.getBufferLength(), // G
-			(double) (secondColor.getBlue() - firstColor.getBlue()) / ledSubsystem.getBufferLength()    // B
+      	(double) (secondColor.getRed() - firstColor.getRed()) / ledSubsystem.getBufferLength(),     // R
+	(double) (secondColor.getGreen() - firstColor.getGreen()) / ledSubsystem.getBufferLength(), // G
+	(double) (secondColor.getBlue() - firstColor.getBlue()) / ledSubsystem.getBufferLength()    // B
     };
     this.currRGB = new double[]{
-      firstColor.getRed(),   // R
-			firstColor.getGreen(), // G
-			firstColor.getBlue()   // B
+      	firstColor.getRed(),   // R
+	firstColor.getGreen(), // G
+	firstColor.getBlue()   // B
     };
     addRequirements(ledSubsystem);
   }
@@ -38,14 +38,14 @@ public class SetFadingGradientCommand extends CommandBase {
   public void execute(){
     ticks++;
     for(int i = 0; i < ledSubsystem.getBufferLength(); i++){
-      ledSubsystem.setRGB(i, (int) Math.round(currRGB[0]), (int) Math.round(currRGB[1]), (int) Math.round(currRGB[2]));
+      	ledSubsystem.setRGB(i, (int) Math.round(currRGB[0]), (int) Math.round(currRGB[1]), (int) Math.round(currRGB[2]));
     }
     for(int i = 0; i < currRGB.length; i++){
-      currRGB[i] += (increasing) ? increments[i] : -increments[i];
+      	currRGB[i] += (increasing) ? increments[i] : -increments[i];
     }
     if(ticks >= ledSubsystem.getBufferLength()){
-      ticks = 0;
-      increasing = !increasing; // iterate in the opposite direction on next execute call
+      	ticks = 0;
+      	increasing = !increasing; // iterate in the opposite direction on next execute call
     }
     ledSubsystem.sendData();
   }
