@@ -16,4 +16,10 @@ public final class Constants {
         public static final double REVERSE_FLYWHEEL_SPEED = -1.0;
         public static final double ENCODER_RESOLUTION = 2048.0;
     }
+    public static final class IntakeConstants {
+        public static final int[] INTAKE_PISTONS = {0,1}; //placeholder
+        public static final int INTAKE_VICTOR = 572893; //placeholder
+        public static final double INTAKE_IN_POWER = 0.7;
+        public static final double INTAKE_OUT_POWER = 0.7;
+    }
 }
