@@ -15,8 +15,8 @@ public class SetStaticGradientCommand extends CommandBase {
 
   public SetStaticGradientCommand(LEDSubsystem ledSubsystem, Color firstColor, Color secondColor){
     this.ledSubsystem = ledSubsystem;
-  	this.firstColor = firstColor;
-  	this.secondColor = secondColor;
+    this.firstColor = firstColor;
+    this.secondColor = secondColor;
     addRequirements(ledSubsystem);
   }
 
