@@ -24,8 +24,8 @@ public class SetAnimatedGradientCommand extends CommandBase {
     Color[] initialState = new Color[ledSubsystem.getBufferLength()];
     double[] currRGB = new double[]{
       firstColor.getRed(),   // R
-			firstColor.getGreen(), // G
-			firstColor.getBlue()   // B
+      firstColor.getGreen(), // G
+      firstColor.getBlue()   // B
     };
 
     /**
